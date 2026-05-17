@@ -1,43 +1,4 @@
-# 🔍 Hasil Audit & Panduan Deploy ke VPS
-
-## ✅ Hasil Audit Komponen
-
-### 1. Laravel (Port 8000)
-| Pemeriksaan | Status | Catatan |
-|---|---|---|
-| APP_DEBUG | ⚠️ Perlu diubah | Saat ini `true`, harus `false` di production |
-| APP_ENV | ⚠️ Perlu diubah | Saat ini `local`, harus `production` |
-| APP_URL | ⚠️ Perlu diubah | Harus diganti ke domain/IP VPS |
-| SESSION_SECURE_COOKIE | ✅ OK | Sudah `true` |
-| TrustProxies | ✅ OK | Sudah dikonfigurasi untuk baca IP asli |
-| SQLiDefense Middleware | ✅ OK | Batch processing, fail-open |
-| SecurityHeaders | ✅ OK | CSP, HSTS, XSS Protection aktif |
-| Debug statement sisa | ✅ OK | Tidak ada `dd()` atau `var_dump()` |
-| Route total | ✅ OK | 66 routes terdaftar |
-
-### 2. AI API (Port 8001)
-| Pemeriksaan | Status | Catatan |
-|---|---|---|
-| Model terlatih | ✅ OK | Akurasi 99.93% |
-| Endpoint /predict | ✅ OK | Berfungsi normal |
-| Endpoint /predict/batch | ✅ OK | Berfungsi normal |
-| Timeout handling | ✅ OK | Middleware timeout 2 detik |
-
-### 3. Bot Telegram
-| Pemeriksaan | Status | Catatan |
-|---|---|---|
-| Owner-only guard | ✅ OK | Semua perintah dilindungi |
-| /start, /status, /sysinfo | ✅ OK | Berfungsi |
-| /blocked, /unblock | ✅ OK | Berfungsi dengan Artisan command |
-| /logs, /clear | ✅ OK | Berfungsi |
-| Notifikasi serangan | ✅ OK | Dikirim via SQLiDefense middleware |
-
-### 4. Pembersihan File (Sudah Dilakukan)
-- ✅ Dihapus: `sembako-final.zip` (2.1MB), `struktur.txt` (740KB), file log, file backup, dll.
-- ✅ Dihapus: File debug sqli (`app_gui.py`, `inspect_csv.py`, dll.)
-- ✅ `.gitignore` diperbarui: `venv/` (460MB!), file synthetic CSV, dll.
-
----
+# Panduan Deploy ke VPS
 
 ## 🚀 Panduan Deploy ke VPS
 
