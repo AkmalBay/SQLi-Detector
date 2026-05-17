@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(artisan list --raw)",
+      "Bash(php artisan list --raw)",
+      "Bash(lsb_release -a)",
+      "Bash(php -v)",
+      "Bash(apt list --installed | grep -E \"^php.*8\\\\.1\" | head -20)",
+      "Bash(sudo apt update)",
+      "Bash(php artisan migrate)",
+      "Bash(sudo service mysql status || sudo service mysql start)",
+      "Bash(php artisan migrate:status 2>&1 || echo \"Migration status check failed\")"
+    ]
+  }
+}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate Favicon</title>
+</head>
+<body>
+    <h1>Favicon Generator</h1>
+    <p>Klik tombol di bawah untuk download favicon yang sudah jadi:</p>
+
+    <canvas id="favicon16" width="16" height="16" style="border:1px solid #ccc;"></canvas>
+    <canvas id="favicon32" width="32" height="32" style="border:1px solid #ccc;"></canvas>
+    <canvas id="favicon180" width="180" height="180" style="border:1px solid #ccc;"></canvas>
+
+    <br><br>
+    <button onclick="downloadFavicon16()">Download favicon-16x16.png</button>
+    <button onclick="downloadFavicon32()">Download favicon-32x32.png</button>
+    <button onclick="downloadFavicon180()">Download apple-touch-icon.png</button>
+
+    <script>
+        function drawIcon(canvas, size) {
+            const ctx = canvas.getContext('2d');
+
+            // Background circle
+            ctx.fillStyle = '#4c6fff';
+            ctx.beginPath();
+            ctx.arc(size/2, size/2, size/2 - 2, 0, Math.PI * 2);
+            ctx.fill();
+
+            // Shopping cart (simplified for small sizes)
+            const scale = size / 50;
+            ctx.save();
+            ctx.translate(size * 0.1, size * 0.1);
+            ctx.scale(scale, scale);
+
+            // Cart body
+            ctx.fillStyle = 'white';
+            ctx.fillRect(5, 15, 35, 25);
+
+            // Cart handle
+            ctx.strokeStyle = 'white';
+            ctx.lineWidth = 3;
+            ctx.beginPath();
+            ctx.moveTo(10, 15);
+            ctx.lineTo(10, 5);
+            ctx.quadraticCurveTo(10, 2, 15, 2);
+            ctx.lineTo(30, 2);
+            ctx.quadraticCurveTo(35, 2, 35, 5);
+            ctx.lineTo(35, 15);
+            ctx.stroke();
+
+            // Wheels
+            ctx.fillStyle = 'white';
+            ctx.beginPath();
+            ctx.arc(13, 47, 4, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.arc(33, 47, 4, 0, Math.PI * 2);
+            ctx.fill();
+
+            ctx.restore();
+
+            // "S" text (only for larger sizes)
+            if (size >= 32) {
+                ctx.fillStyle = 'white';
+                ctx.font = `bold ${size * 0.35}px Arial`;
+                ctx.textAlign = 'center';
+                ctx.fillText('S', size/2, size * 0.75);
+            }
+        }
+
+        function downloadFavicon16() {
+            drawIcon(document.getElementById('favicon16'), 16);
+            const link = document.createElement('a');
+            link.download = 'favicon-16x16.png';
+            link.href = document.getElementById('favicon16').toDataURL();
+            link.click();
+        }
+
+        function downloadFavicon32() {
+            drawIcon(document.getElementById('favicon32'), 32);
+            const link = document.createElement('a');
+            link.download = 'favicon-32x32.png';
+            link.href = document.getElementById('favicon32').toDataURL();
+            link.click();
+        }
+
+        function downloadFavicon180() {
+            drawIcon(document.getElementById('favicon180'), 180);
+            const link = document.createElement('a');
+            link.download = 'apple-touch-icon.png';
+            link.href = document.getElementById('favicon180').toDataURL();
+            link.click();
+        }
+
+        // Auto-draw on load
+        window.onload = function() {
+            drawIcon(document.getElementById('favicon16'), 16);
+            drawIcon(document.getElementById('favicon32'), 32);
+            drawIcon(document.getElementById('favicon180'), 180);
+        };
+    </script>
+</body>
+</html>
