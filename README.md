@@ -3,7 +3,7 @@
 Sistem pertahanan web berbasis kecerdasan buatan (AI) yang dirancang untuk mendeteksi dan mencegah serangan **SQL Injection (SQLi)** secara real-time. Proyek ini mengintegrasikan framework **Laravel** dengan model **Machine Learning (Naive Bayes)** untuk menganalisis setiap input yang masuk ke aplikasi dan mengirimkan notifikasi keamanan real-time via **Telegram**.
 
 ## 🚀 Fitur Utama
-- **AI-Powered Detection**: Menggunakan algoritma Naive Bayes dengan analisis karakter n-grams untuk akurasi sangat tinggi (99.99%).
+- **AI-Powered Detection**: Menggunakan algoritma Naive Bayes dengan analisis karakter n-grams untuk akurasi sangat tinggi (99.74%).
 - **Global Middleware**: Melindungi seluruh rute aplikasi Laravel secara otomatis dari serangan.
 - **Automated IP Blocking**: Memblokir alamat IP penyerang secara otomatis selama 24 jam jika terdeteksi aktivitas mencurigakan.
 - **Telegram Security Bot**: Notifikasi serangan real-time dan manajemen server (clear cache, unblock IP) via Telegram.
@@ -53,12 +53,12 @@ Setiap kali deteksi berhasil mengenali SQLi, AI Server langsung menembakkan log 
 
 ## 📈 Hasil Akurasi (Model Performance)
 
-Model Naive Bayes ini telah dilatih dan dievaluasi menggunakan gabungan 3 dataset open-source yang ekstensif (`sqli.csv`, `sqliv2.csv`, `SQLiV3.csv`). Hasil pengujian menunjukkan performa yang **hampir sempurna**:
+Model Naive Bayes ini telah dilatih dan dievaluasi menggunakan gabungan 5 dataset ekstensif, termasuk dataset *open-source* (`sqli.csv`, `sqliv2.csv`, `SQLiV3.csv`) dan data sintetik (`synthetic_normal.csv`, `synthetic_sqli.csv`) untuk memperkuat ketahanan deteksi. Hasil pengujian menunjukkan performa yang **hampir sempurna**:
 
-- **Accuracy**: `99.99%`
-- **Precision**: `99.99%` (Sangat jarang menganggap input aman sebagai serangan - *Low False Positives*)
-- **Recall**: `99.99%` (Hampir tidak ada serangan yang lolos deteksi - *Low False Negatives*)
-- **F1-Score**: `99.99%`
+- **Accuracy**: `99.74%`
+- **Precision**: `99.30%` (Sangat jarang menganggap input aman sebagai serangan - *Low False Positives*)
+- **Recall**: `99.30%` (Hampir tidak ada serangan yang lolos deteksi - *Low False Negatives*)
+- **F1-Score**: `99.30%`
 
 *Catatan:* Akurasi ekstrem ini dicapai karena representasi data TF-IDF N-Gram mampu menangkap *syntax* spesifik dari SQL secara presisi membedakannya dengan teks biasa.
 
@@ -112,7 +112,10 @@ source venv/bin/activate
 # 3. Install semua dependensi (FastAPI, Scikit-learn, Uvicorn, Telebot, Pandas)
 pip install -r requirements.txt
 
-# 4. Latih model pertama kali (Akan menghasilkan models/sqli_model.pkl)
+# 4. Generate data sintetik (Wajib dilakukan karena file CSV data sintetik tidak di-upload ke Git)
+python3 generate_synthetic_data.py
+
+# 5. Latih model pertama kali (Akan menghasilkan models/sqli_model.pkl)
 python3 train_model.py
 ```
 
@@ -136,10 +139,10 @@ Description=SQLi Detection FastAPI Service
 After=network.target
 
 [Service]
-User=prof
-WorkingDirectory=/home/prof/Documents/sembako-app-copy/sqli
-Environment="PATH=/home/prof/Documents/sembako-app-copy/sqli/venv/bin"
-ExecStart=/home/prof/Documents/sembako-app-copy/sqli/venv/bin/python sqli_server_api.py
+User=your_username
+WorkingDirectory=/path/to/your/project/sqli
+Environment="PATH=/path/to/your/project/sqli/venv/bin"
+ExecStart=/path/to/your/project/sqli/venv/bin/python sqli_server_api.py
 Restart=always
 
 [Install]

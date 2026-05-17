@@ -4,9 +4,9 @@ After=network.target
 
 [Service]
 Type=simple
-WorkingDirectory=/home/prof/Documents/sembako-app-copy/sqli
-Environment=PATH=/home/prof/Documents/sembako-app-copy/sqli/venv/bin:$PATH
-ExecStart=/home/prof/Documents/sembako-app-copy/sqli/venv/bin/python sqli_server_api.py
+WorkingDirectory=/path/to/your/project/sqli
+Environment=PATH=/path/to/your/project/sqli/venv/bin:$PATH
+ExecStart=/path/to/your/project/sqli/venv/bin/python sqli_server_api.py
 Restart=always
 RestartSec=5
 

@@ -28,7 +28,7 @@ from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandl
 # KONFIGURASI
 # ==================================================
 # Muat variabel dari .env Laravel
-LARAVEL_PATH = os.getenv("APP_LARAVEL_PATH", "/home/prof/Documents/sembako-app-copy")
+LARAVEL_PATH = os.getenv("APP_LARAVEL_PATH", "/path/to/your/laravel/app")
 load_dotenv(os.path.join(LARAVEL_PATH, ".env"))
 
 BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
